@@ -131,7 +131,7 @@ LOGGING = {
         },
         'file': {
             'class': 'logging.FileHandler',
-            'filename': '/app/logs/debug.log',  # Adjust the path as per your Railway setup
+            'filename': BASE_DIR/'logs/debug.log',  # Adjust the path as per your Railway setup
             'level': 'DEBUG',
         },
     },
