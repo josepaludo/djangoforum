@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Group | {{group.name}}
+{% endblock title %}
+
+{% block content %}
+
+    <div class="d-flex justify-content-between">
+
+        <h1 class="display-4 p-3">{{group.name}}</h1>
+
+        {% if request.user in group.admins.all %}
+                <a href="{% url 'group:groupsettings' group.id 0 %}" class="btn btn-dark my-auto me-4">
+                    Group Settings
+                </a>
+        {% else %}
+            {% if request.user in group.members.all %}
+                <a href="{% url 'group:joinleavegroup' group.id 0 %}" class="btn btn-dark my-auto me-4">
+                    Leave Group
+                </a>
+            {% else %}
+                <a href="{% url 'group:joinleavegroup' group.id 1 %}" class="btn btn-dark my-auto me-4">
+                    Join Group
+                </a>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <div class="text-body-secondary small m-3 mt-2">
+        <p class="mb-1">
+            Creator: 
+            <a href="{% url 'user:profile' user %}" class="text-decoration-none link-body-emphasis">
+                {{group.creator}}
+            </a>
+        </p>
+        <p class="my-1">
+            {{group.members.count}}
+            <a href="{% url 'group:groupmembers' group.id %}" class="text-decoration-none link-body-emphasis">
+                {% if group.members.count == 1 %}
+                    Member
+                {% else %}
+                    Members
+                {% endif %}
+            </a>
+        </p>
+        <p class="my-1">
+            {{group.admins.count}}
+            <a href="{% url 'group:groupadmins' group.id %}" class="text-decoration-none link-body-emphasis">
+                {% if group.admins.count == 1 %}
+                    Admins
+                {% else %}
+                    Admins
+                {% endif %}
+            </a>
+        </p>
+        <p>
+            {{group.posts.count}}
+            {% if group.posts.count == 1 %}
+                Post
+            {% else %}
+                Posts
+            {% endif %}
+        </p>
+    </div>
+
+    <p class="lead px-5 my-5">{{group.description}}</p>
+
+    <div class="accordion" id="accordion">
+        <div class="accordion-item">
+            <h2 class="accorion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="false" aria-controls="collapse">
+                    Post in {{group.name}}
+                </button>
+            </h2>
+            <div id="collapse" class="accordion-collapse collapse" data-bs-parent="#accordion">
+                <div class="accordion-body">
+                    {% include 'makepost.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <h1 class="display-5 ps-3 mt-4">Posts</h1>
+        <hr class="my-4">
+        {% include 'posts.html' %}
+    </div>
+
+{% endblock content %}

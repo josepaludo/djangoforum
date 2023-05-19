@@ -1,0 +1,11 @@
+<form
+    action="{% url 'post:makeanswer' post.id %}"
+    method="post"
+    class="my-5"
+>
+    {% csrf_token %}
+    {{ form.content }}
+    <button class="btn btn-dark" type="submit">
+        Answer
+    </button>
+</form>

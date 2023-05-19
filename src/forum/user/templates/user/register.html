@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Register
+{% endblock title %}
+
+{% block head %}
+    <script>
+        const names = {{names|safe}}
+    </script>
+    <script src="{% static 'registerScript.js' %}"></script>
+{% endblock head %}
+
+{% block content %}
+
+    <h1 class="p-3 display-3">Register</h1>
+
+    <form action="." method="post" class="p-3">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_username" class="form-label">Username</label>
+            {{ form.username }}
+        </div>
+        <div class="alert alert-danger" role="alert" id="nameAlert">
+            This username is already in use.
+        </div>
+
+        <div class="mb-3">
+            <label for="id_email" class="form-label">Email</label>
+            {{ form.email }}
+        </div>
+        <div class="alert alert-danger" role="alert" id="emailAlert">
+            Please enter a valid e-mail address.
+        </div>
+
+        <div class="mb-3">
+            <label for="id_password1" class="form-label">Password</label>
+            {{ form.password1 }}
+        </div>
+        <div class="alert alert-danger" role="alert" id="password1Alert">
+            <div id="chars">Your password must contain at least 8 characters.</div>
+            <div id="numeric">Your password can't be entirely numeric.</div>
+            <div id="common">Your password can't be a commonly user password.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_password2" class="form-label">Repeat Password</label>
+            {{ form.password2 }}
+        </div>
+        <div class="alert alert-danger" role="alert" id="password2Alert">
+            Your password is not matching.
+        </div>
+
+        <button type="submit" class="btn btn-dark">Submit</button>
+    </form>
+
+    <script>maintenance()</script>
+
+{% endblock content %}

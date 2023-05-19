@@ -1,0 +1,37 @@
+/* TAGS */
+
+/* CLASSES */
+.text-decoration-none {
+    text-decoration: none;
+}
+.mainDiv {
+    max-width: 800px;
+}
+.hidden-answer, .hidden-div, #password1Alert, #password2Alert, #emailAlert, #nameAlert {
+    display: none;
+}
+.pointer-on-hover {
+    cursor: pointer;
+}
+
+/* SQUARING IMAGES */
+.square-img, .square-img-sm {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    position: relative;
+}
+.square-img img, .square-img-sm img {
+    width: auto;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.square-img-sm {
+    width: 25px;
+    height: 25px;
+}
+
+/* OTHER */

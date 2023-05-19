@@ -1,0 +1,22 @@
+<nav class="navbar bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid px-4">
+
+        <a class="navbar-brand" href="{% url 'homepage:index' %}">Forum</a>
+
+        <form action="{% url 'homepage:search' %}" method="post" class="d-flex" role="search">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+            {% comment %} <button class="btn btn-outline-secondary" type="submit">Search</button> {% endcomment %}
+        </form>
+
+        <div class="d-flex justify-content-between text-white">
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'user:profile' request.user %}" class="nav-link px-2">Profile</a>
+            {% else %}
+                <a href="{% url 'user:login' %}" class="nav-link px-2">Login</a>
+                <a href="{% url 'user:register' %}" class="nav-link px-2">Register</a>
+            {% endif %}
+        </div>
+
+    </div>
+</nav>

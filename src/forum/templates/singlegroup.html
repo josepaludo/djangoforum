@@ -1,0 +1,36 @@
+<div class="p-3">
+    <a href="{% url 'group:grouppage' group.id %}" class="text-decoration-none link-body-emphasis">
+        <h1>{{group.name}}</h1>
+    </a>
+
+    <div class="d-flex text-body-secondary small">
+        <p>
+            Creator: 
+            <a href="{% url 'user:profile' group.creator %}" class="text-decoration-none link-body-emphasis">
+                {{group.creator}}
+            </a>
+        </p>
+        <p class="mx-3">
+            {{group.members.count}}
+            <a href="{% url 'group:groupmembers' group.id %}" class="text-decoration-none link-body-emphasis">
+                {% if group.members.count == 1 %}
+                    Member
+                {% else %}
+                    Members
+                {% endif %}
+            </a>
+        </p>
+        <p>
+            {{group.posts.count}}
+            <a href="{% url 'group:grouppage' group.id %}" class="text-decoration-none link-body-emphasis">
+                {% if group.posts.count == 1 %}
+                    Post
+                {% else %}
+                    Posts
+                {% endif %}
+            </a>
+        </p>
+    </div>
+
+    <p class="lead p-3 m-0">{{group.description}}</p>
+</div>

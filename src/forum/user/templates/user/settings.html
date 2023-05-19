@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Profile Settings | {{request.user}}
+{% endblock title %}
+
+{% block content %}
+
+    <h1 class="p-3 display-3">
+        Profile Settings
+    </h1>
+
+    <h1 class="p-3 display-4 mb-4">
+        {{user}}
+    </h1>
+
+    <form action="{% url 'user:settings' %}" class="p-3" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="id_bio" class="form-label">Bio</label>
+            <textarea name="bio" cols="40" rows="10" class="form-control" style="resize: none;" maxlength="1000" required id="id_bio">{{user.profile.bio}}</textarea>
+            {% comment %} {{form.bio}} {% endcomment %}
+        </div>
+        <div class="div my-4">
+            <label for="id_image" class="form-label">Profile Image</label>
+            {{form.image}}
+        </div>
+        <button type="submit" class="btn btn-dark my-3">Submit</button>
+    </form>
+
+{% endblock content %}

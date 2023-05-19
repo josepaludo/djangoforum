@@ -1,0 +1,78 @@
+<div class="m-3 mt-4">
+
+    {% if post.title %}
+        <div class="d-flex justify-content-between">
+            <a href="{% url 'post:mainpost' post.user post.id %}" class="text-decoration-none link-body-emphasis">
+                <h3>{{post.title}}</h3>
+            </a>
+            {% if post.group %}
+                <a href="{% url 'group:grouppage' post.group.id %}" class="text-decoration-none link-body-emphasis">
+                    <p><em>
+                        {{post.group.name}}
+                    </em></p>
+                </a>
+            {% endif %}
+        </div>
+    {% else %}
+        {% if post == mainpost or query%}
+            <a href="{% url 'post:mainpost' post.related_post.user post.related_post.id %}" class="text-decoration-none link-secondary">
+                <i class="bi bi-arrow-90deg-left"></i>
+                Answers to
+            </a>
+            <div class="my-4"></div>
+        {% endif %}
+    {% endif %}
+
+    <div class="d-flex">
+        <a href="{% url 'user:profile' post.user %}" class="text-decoration-none link-body-emphasis">
+            {% if post.user.profile.image %}
+                <div class="square-img-sm rounded-circle my-auto">
+                    <img src="{{post.user.profile.image.url}}" alt="Profile Image"> 
+                </div>
+            {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>
+            {% endif %}
+        </a>
+        <a href="{% url 'user:profile' post.user %}" class="text-decoration-none link-body-emphasis ms-1">
+            <p class="small d-inline">{{post.user}}</p>
+        </a>
+    </div>
+
+    <p class="mt-3 px-4 lead">{{post.content|linebreaksbr}}</p>
+
+    <div class="d-flex justify-content-between">
+        <a
+            {% if post.title or query %}
+                href="{% url 'post:mainpost' post.user post.id %}"
+            {% else %}
+                onclick="answersDisplayFunc(this)"
+            {% endif %}
+            class="text-decoration-none link-body-emphasis m-0 pointer-on-hover"
+        >
+            <i class="bi bi-chat-dots"></i> {{post.answers.count}}
+        </a>
+
+        <div class="d-flex">
+            <a href="{% url 'post:votepost' 1 post.id %}" class="text-decoration-none link-success m-0 me-2">
+                {% if request.user in post.upvoters.all %}
+                    <i class="bi bi-hand-thumbs-up-fill"></i>
+                {% else %}
+                    <i class="bi bi-hand-thumbs-up"></i>
+                {% endif %}
+                {{post.upvoters.count}}
+            </a>
+            <a href="{% url 'post:votepost' 0 post.id %}" class="text-decoration-none link-danger m-0">
+                {% if request.user in post.downvoters.all %}
+                    <i class="bi bi-hand-thumbs-down-fill"></i>
+                {% else %}
+                    <i class="bi bi-hand-thumbs-down"></i>
+                {% endif %}
+                {{post.downvoters.count}}
+            </a>
+        </div>
+    </div>
+
+</div>

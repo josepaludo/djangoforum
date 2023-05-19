@@ -1,0 +1,19 @@
+{% include 'singlepost.html' %}
+
+<div id="post_id_{{post.id}}" class="hidden-answer">
+
+    {% include 'answerinput.html' %}
+
+    {% if post.answers.count >= 1 %}
+        <hr class="my-4">
+        <div class="ms-5">
+            {% for post in post.answers.all %}
+                {% include 'singleanswer.html' %}
+                {% if forloop.counter != post.related_post.answers.count %}
+                    <hr class="my-4">
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+</div>

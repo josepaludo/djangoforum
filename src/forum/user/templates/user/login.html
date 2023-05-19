@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Login
+{% endblock title %}
+
+{% block content %}
+
+    <h1 class="display-3 p-3">Login</h1>
+
+    {% if failed %}
+        <div class="alert alert-danger m-3">
+            Invalid username or password.
+        </div>
+    {% endif %}
+
+    <form action="." method="post" class="p-3">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_username" class="form-label">Username</label>
+            {{form.username}}
+        </div>
+        <div class="mb-3">
+            <label for="id_password" class="form-label">Password</label>
+            {{form.password}}
+        </div>
+        <button type="submit" class="btn btn-dark">Submit</button>
+    </form>
+
+{% endblock content %}

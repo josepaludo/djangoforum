@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <script defer src="{% static 'searchFilterScript.js' %}"></script>
+    {% if query %}
+        <script>
+            window.onload = () => {
+                document.getElementById("postTitle").click();
+            }
+        </script>
+    {% endif %}
+{% endblock head %}
+
+{% block title %}
+    Search
+    {% if query %}
+        | {{query}}
+    {% endif %}
+{% endblock title %}
+
+{% block content %}
+
+    <h1 class="display-3 p-3">Search</h1>
+
+    <p class="lead p-3">
+        Type your search here and then filter the results. 
+    </p>
+
+    <form class="ps-3" action="{% url 'homepage:search' %}" method="post">
+        {% csrf_token %}
+
+        <input type="text" class="form-control my-4" placeholder="Search" name="query"
+            {% if query %}
+                value="{{query}}"
+            {% endif %}
+        >
+        <button class="btn btn-dark">Search</button>
+
+    </form>
+
+    <hr class="my-4">
+
+    <h1 class="display-4 p-3 my-4">Filter</h1>
+
+    <div class="btn-group p-3" role="group" aria-label="Basic radio toggle button group">
+
+        <input type="radio" class="btn-check" name="btnradio" id="postTitle" autocomplete="off">
+        <label class="btn btn-outline-dark" for="postTitle">
+            Post Title
+        </label>
+        
+        <input type="radio" class="btn-check" name="btnradio" id="postContent" autocomplete="off">
+        <label class="btn btn-outline-dark" for="postContent">
+            Post Content
+        </label>
+        
+        <input type="radio" class="btn-check" name="btnradio" id="userName" autocomplete="off">
+        <label class="btn btn-outline-dark" for="userName">
+            User Name
+        </label>
+        
+        <input type="radio" class="btn-check" name="btnradio" id="userBio" autocomplete="off">
+        <label class="btn btn-outline-dark" for="userBio">
+            User Bio
+        </label>
+        
+        <input type="radio" class="btn-check" name="btnradio" id="groupName" autocomplete="off">
+        <label class="btn btn-outline-dark" for="groupName">
+            Group Name
+        </label>
+        
+        <input type="radio" class="btn-check" name="btnradio" id="groupDescription" autocomplete="off">
+        <label class="btn btn-outline-dark" for="groupDescription">
+            Group Description
+        </label>
+
+    </div>
+
+    <div id="results" class="p-3 my-4">
+
+        <div class="hidden-div" id="postTitleDiv">
+            {% with postTitle as posts %}
+                {% include 'posts.html' %}
+            {% endwith %}
+        </div>
+
+        <div class="hidden-div" id="postContentDiv">
+            {% with postContentMain as posts %}
+                {% include 'posts.html' %}
+            {% endwith %}
+
+            {% if postContentMain.count > 0 and postContentAnswer.count > 0 %}
+                <hr class="my-4">
+            {% endif %}
+
+            {% if postContentAnswer.count > 0 %}
+                {% with postContentAnswer as posts %}
+                    {% include 'posts.html' %}
+                {% endwith %}
+            {% endif %}
+        </div>
+
+        <div class="hidden-div" id="userNameDiv">
+            {% with userName as users %}
+                {% include 'users.html' %}
+            {% endwith %}
+        </div>
+
+        <div class="hidden-div" id="userBioDiv">
+            {% with userBio as users %}
+                {% include 'users.html' %}
+            {% endwith %}
+        </div>
+
+        <div class="hidden-div" id="groupNameDiv">
+            {% with groupName as groups %}
+                {% include 'groups.html' %}
+            {% endwith %}
+        </div>
+
+        <div class="hidden-div" id="groupDescriptionDiv">
+            {% with groupDescription as groups %}
+                {% include 'groups.html' %}
+            {% endwith %}
+        </div>
+
+    </div>
+
+{% endblock content %}

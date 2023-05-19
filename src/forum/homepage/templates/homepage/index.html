@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if following %}
+        Following
+    {% else %}
+        {% if is_post %}
+            Post
+        {% else %}
+            Home
+        {% endif %}
+    {% endif %}
+{% endblock title %}
+
+{% block content %}
+
+    <div class="my-3">
+        <div class="d-flex justify-content-around">
+            <a href="{% url 'homepage:index' %}" class="flex-grow-1 text-decoration-none link-body-emphasis">
+                <h1 class="display-6 flex-grow-1 text-center">Home</h1>
+            </a>
+
+            <div class="vr"></div>
+
+            <a href="{% url 'homepage:following' %}" class="flex-grow-1 text-decoration-none link-body-emphasis">
+                <h1 class="display-6 text-center">Following</h1>
+            </a>
+
+            <div class="vr"></div>
+
+            <a href="{% url 'homepage:post' %}" class="flex-grow-1 text-decoration-none link-body-emphasis">
+                <h1 class="display-6 text-center">Post</h1>
+            </a>
+        </div>
+        <hr>
+
+        {% if is_post %}
+            {% include 'makepost.html' %}
+        {% else %}
+            {% include 'posts.html' %}
+        {% endif %}
+
+    </div>
+
+
+{% endblock content %}

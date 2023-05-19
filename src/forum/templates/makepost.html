@@ -1,0 +1,63 @@
+<form action="{% if group %}{% url 'homepage:post' %}{% endif %}" method="post" class="p-3">
+    {% csrf_token %}
+
+    {% if is_post %}
+        <label for="id_group" class="form-label mb-0 d-inline">Group</label>
+        <div class="dropdown my-4" id="id_group">
+            <button
+                type="button"
+                class="btn btn-dark dropdown-toggle"
+                data-bs-toggle="dropdown"
+                data-bs-auto-close="outside"
+                aria-expanded="false"
+            >
+                Select
+            </button>
+
+            <ul class="dropdown-menu">
+                <li class="dropdown-item">
+                    <div class="form-check">
+                        <input
+                            type="radio"
+                            class="form-check-input"
+                            name="group"
+                            id="no_group"
+                            checked
+                        >
+                        <label for="no_group" class="form-check-label">
+                            No group
+                        </label>
+                    </div>
+                </li>
+                {% for group in user_groups %}
+                    <li class="dropdown-item">
+                        <div class="form-check">
+                            <input
+                                type="radio"
+                                class="form-check-input"
+                                name="group"
+                                id="{{group.id}}"
+                                value="{{group.id}}"
+                            >
+                            <label for="{{group.id}}" class="form-check-label">
+                                {{group.name}}
+                            </label>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    {% else %}
+        <input type="hidden" name="group" value="{{group.id}}">
+    {% endif %}
+
+    <label for="id_title" class="form-label">Post Title</label>
+    {{ form.title }}
+
+    <label for="id_content" class="form-label">Post Content</label>
+    {{ form.content }}
+
+    <button class="btn btn-dark">Submit</button>
+
+</form>

@@ -1,0 +1,9 @@
+{% if users.count == 0 %}
+    <h1 class="display-5 p-3">No users to show at the moment.</h1>
+{% endif %}
+{% for user in users %}
+    {% include 'singleuser.html' %}
+    {% if forloop.counter != users.count %}
+        <hr class="my-4">
+    {% endif %}
+{% endfor %}

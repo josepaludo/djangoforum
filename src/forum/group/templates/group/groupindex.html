@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Groups
+{% endblock title %}
+
+{% block content %}
+
+    <h1 class="display-3 p-3">Groups</h1>
+
+    <p class="lead p-3">Create a group, browse your groups or discover new groups!</p>
+
+    <div class="p-3">
+        <a href="{% url 'group:creategroup' %}" class="btn btn-dark ">Create</a>
+        <a href="{% url 'group:browsegroups' %}" class="btn btn-dark mx-3">Browse</a>
+        <a href="{% url 'group:discovergroups' %}" class="btn btn-dark">Discover</a>
+    </div>
+
+{% endblock content %}

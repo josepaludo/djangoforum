@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <script>
+        const INVALID_NAMES = {{invalid_names|safe}};
+        const GROUP_NAME = "{{group.name|safe}}";
+    </script>
+    <script defer src="{% static 'groupSettingsScript.js' %}"></script>
+{% endblock head %}
+
+{% block title %}
+    {{group.name}} settings
+{% endblock title %}
+
+{% block content %}
+
+    <h1 class="display-4 p-3 mb-4">
+        <a href="{% url 'group:grouppage' group.id %}" class="text-decoration-none link-body-emphasis">
+            {{group.name}}
+        </a>
+        settings
+    </h1>
+
+    <div class="p-3">
+        <label for="linkToMembersPage" class="form-label">
+            Manage group member status, remove and/or block members:
+        </label>
+        <br>
+        <a href="{% url 'group:groupmembers' group.id %}" class="btn btn-dark" id="linkToMembersPage">
+            Go to Members Page
+        </a>
+    </div>
+
+    <hr>
+
+    <div class="p-3">
+        <label for="oneTimeInviteLinkButton" class="form-label">
+            Generate one-time use invite link and then copy it:
+        </label>
+        <br>
+
+        <a href="{% url 'group:invitehandler' group.id %}" class="btn btn-dark me-2" id="oneTimeInviteLinkButton">
+            Generate Link
+        </a>
+        {% if link_id != "0" %}
+            <button type="button" class="btn btn-dark" data-invite-link-id="{% url 'group:joinbyinvitation' link_id %}" data-bs-toggle="modal" data-bs-target="#inviteLinkModal" id="inviteLinkModalBtn">
+                Copy LInk
+            </button>
+
+            <div class="modal fade" id="inviteLinkModal" tabindex="-1" aria-labelledby="inviteLinkModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                Link copied to clipboard
+                            </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            The link will expire in 24 Hours.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <button class="btn btn-dark" type="button" disabled>
+                Copy Link
+            </button>
+        {% endif %}
+    </div>
+
+    <hr>
+
+    <form action="{% url 'group:groupsettings' group.id 0 %}" method="post" class="p-3">
+        {% csrf_token %}
+
+        <label for="id_name" class="form-label">
+            Change Name
+        </label>
+        <input type="text" name="name" maxlength="120" class="form-control my-3" style="resize: none;" required id="id_name" value="{{group.name}}">
+
+        <label for="id_description" class="form-label">
+            Change Description
+        </label>
+        <textarea name="description" cols="40" rows="10" maxlength="1000" class="form-control my-3" style="resize: none;" required id="id_description">{{group.description}}</textarea>
+
+        <button type="submit" class="btn btn-dark">
+            Submit Changes
+        </button>
+    </form>
+
+{% endblock content %}

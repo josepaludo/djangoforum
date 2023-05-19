@@ -1,0 +1,9 @@
+{% if posts.count == 0 %}
+    <h1 class="display-5 p-3">No posts to show at the moment.</h1>
+{% endif %}
+{% for post in posts %}
+    {% include 'singlepost.html' %}
+    {% if forloop.counter != posts.count %}
+        <hr class="my-4">
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,12 @@
+{% if groups.count == 0 %}
+    <h1 class="display-5 p-3">No groups to show at the moment.</h1>
+{% endif %}
+{% for group in groups %}
+    {% if groups.count == 0 %}
+        <h1 class="display-5 p-3">No groups to show at the moment.</h1>
+    {% endif %}
+    {% include 'singlegroup.html' %}
+    {% if forloop.counter != groups.count %}
+        <hr class="my-4">
+    {% endif %}
+{% endfor %}

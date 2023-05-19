@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <script defer src="{% static 'answerInputScript1.js' %}"></script>
+    <script defer src="{% static 'answersDisplayScript.js' %}"></script>
+{% endblock head %}
+
+{% block title %}
+    Post | {{post.title}}
+{% endblock title %}
+
+{% block content %}
+
+    <h1>{{request.post}}</h1>
+
+    {% include 'singlepost.html' %}
+
+    {% include 'answerinput.html' %}
+
+    {% for post in post.answers.all %}
+
+        <hr class="my-4">
+        {% include 'singleanswer.html' %}
+
+    {% endfor %}
+
+{% endblock content %}
