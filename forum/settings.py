@@ -121,3 +121,29 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Simplified static file serving.
 # https://pypi.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': '/app/logs/debug.log',  # Adjust the path as per your Railway setup
+            'level': 'DEBUG',
+        },
+    },
+    'root': {
+        'handlers': ['console', 'file'],
+        'level': 'INFO',  # Set the desired log level for your application
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',  # Set the desired log level for Django-related logs
+            'propagate': True,
+        },
+    },
+}
