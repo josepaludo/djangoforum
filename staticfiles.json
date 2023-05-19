@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "paths": {
+    "answerInputScript1.js": {
+      "path": "answerInputScript1.abcd1234.js",
+      "hash": "abcd1234"
+    },
+    "answersDisplayScript.js": {
+      "path": "answersDisplayScript.efgh5678.js",
+      "hash": "efgh5678"
+    },
+    "groupSettingsScript.js": {
+      "path": "groupSettingsScript.ijkl9012.js",
+      "hash": "ijkl9012"
+    },
+    "registerScript.js": {
+      "path": "registerScript.mnop3456.js",
+      "hash": "mnop3456"
+    },
+    "searchFilterScript.js": {
+      "path": "searchFilterScript.qrst7890.js",
+      "hash": "qrst7890"
+    },
+    "style.css": {
+      "path": "style.uvwx1234.css",
+      "hash": "uvwx1234"
+    }
+  }
+}
+
