@@ -10,7 +10,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = os.environ.get('DEBUG') != 'False'
 
 ALLOWED_HOSTS = ['djangoforum-production.up.railway.app','127.0.0.1']
-CSRF_TRUSTED_ORIGINS = ['https://djangoforum-production.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = ['https://djangoforum-production.up.railway.app']
 
 INSTALLED_APPS = [
     'homepage',
