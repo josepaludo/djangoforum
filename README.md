@@ -1,11 +1,14 @@
 # forum
 
-**forum** is a web application that allow users to interact with each other by sharing posts, engaging in conversations in the post reply session and gathering in groups. It is built on Django 4.2 and stylized with Bootstrap 5.3.
+**forum** is a web application that allow users to interact with each other by sharing posts, engaging in conversations in the post reply session and gathering in groups. It is built on Django 4.2, stylized with Bootstrap 5.3 and implements PostgreSQL as its database.
+
+You can access **forum** right now! Just click [here](https://djangoforum-production.up.railway.app/).
 
 ## Features
 
 - Built with the Django 4.2, a powerful and popular Python framework for building web applications.
 - Styled with Bootstrap, a widely-used CSS library that provides a range of customizable components and styles for building modern web interfaces.
+- Integration of PostgreSQL, a robust and scalable database system, for efficient data management and retrieval.
 
 With **forum** you can:
 
@@ -25,7 +28,6 @@ pip install -r requirements.txt
 ```
 3. Initialize the database:
 ```
-python manage.py makemigrations
 python manage.py migrate
 ```
 4. Run the Django server:
