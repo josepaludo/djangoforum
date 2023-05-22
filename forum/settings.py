@@ -107,14 +107,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_ROOT = BASE_DIR/'static/'
+STATIC_ROOT = BASE_DIR/'staticfiles'
 STATIC_URL = '/static/'
+STATICFILES_DIR = [
+    BASE_DIR/'static'
+]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 
-MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR/"media/"
+MEDIA_URL = "/media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -134,18 +137,18 @@ LOGGING = {
         },
         'file': {
             'class': 'logging.FileHandler',
-            'filename': BASE_DIR/'logs/debug.log',  # Adjust the path as per your Railway setup
+            'filename': BASE_DIR/'logs/debug.log',
             'level': 'DEBUG',
         },
     },
     'root': {
         'handlers': ['console', 'file'],
-        'level': 'INFO',  # Set the desired log level for your application
+        'level': 'INFO',
     },
     'loggers': {
         'django': {
             'handlers': ['console', 'file'],
-            'level': 'INFO',  # Set the desired log level for Django-related logs
+            'level': 'INFO',
             'propagate': True,
         },
     },
