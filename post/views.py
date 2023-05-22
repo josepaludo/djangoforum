@@ -98,3 +98,21 @@ class VotePost(TemplateView):
                 'post_id': post.id,
             }
         ))
+
+
+class DeletePost(TemplateView):
+
+    def get(self, request, post_id):
+
+        if not request.user.is_authenticated:
+            return redirect(reverse('user:login'))
+
+        try:
+            post = Post.objects.get(id=post_id)
+        except Post.DoesNotExist:
+            return redirect(reverse('homepage:index'))
+
+        if post.user == request.user:
+            post.delete()
+        
+        return redirect(reverse('homepage:index'))
